@@ -15,7 +15,8 @@ enum EKEYS
     K_RIGHT,
     K_ESCAPE,
     K_SPACE,
-    K_COUNT
+    K_COUNT,
+	K_ENTER
 };
 
 // Enumeration for the different screen states
@@ -23,7 +24,8 @@ enum EGAMESTATES
 {
     S_SPLASHSCREEN,
     S_GAME,
-    S_COUNT
+    S_COUNT,
+	S_MENU
 };
 
 // struct for the game character
@@ -39,6 +41,7 @@ void update      ( double dt ); // update the game and the state of the game
 void render      ( void );      // renders the current state of the game to the console
 void shutdown    ( void );      // do clean up, free memory
 
+void renderMenu();
 void splashScreenWait();    // waits for time to pass in splash screen
 void gameplay();            // gameplay logic
 void moveCharacter();       // moves the character, collision detection, physics, etc
