@@ -76,7 +76,7 @@ void getInput( void )
     g_abKeyPressed[K_RIGHT]  = isKeyPressed(VK_RIGHT);
     g_abKeyPressed[K_SPACE]  = isKeyPressed(VK_SPACE);
     g_abKeyPressed[K_ESCAPE] = isKeyPressed(VK_ESCAPE);
-	g_abKeyPressed[K_SPACE] = isKeyPressed(VK_SPACE);
+	g_abKeyPressed[K_RETURN] = isKeyPressed(VK_RETURN);
 }
 
 //--------------------------------------------------------------
@@ -231,9 +231,13 @@ void renderMenu()
 	COORD c = g_Console.getConsoleSize();
 	c.Y /= 3;
 	c.X = c.X / 2 - 9;
-	g_Console.writeToBuffer(c, "Press <Space> to play!", 0x03);
+	g_Console.writeToBuffer(c, "Press <ENTER> to play!", 0x03);
+	c.X = c.X / 2 - 9;
+	g_Console.writeToBuffer(c, "Press <SPACE> for tutorial");
+	c.X = c.X / 2 - 9;
+	g_Console.writeToBuffer(c, "Press ");
 
-	if (g_abKeyPressed[K_SPACE])
+	if (g_abKeyPressed[K_RETURN])
 	{
 		g_eGameState = S_GAME;
 	}
