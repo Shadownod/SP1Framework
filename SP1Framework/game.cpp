@@ -10,6 +10,8 @@
 double  g_dElapsedTime;
 double  g_dDeltaTime;
 bool    g_abKeyPressed[K_COUNT];
+bool setTimeTrap = false;
+int timer;
 
 // Game specific variables here
 SGameChar   g_sChar;
@@ -209,11 +211,10 @@ void renderSplashScreen()  // renders the splash screen
 	g_Console.writeToBuffer(c, "Welcome to treasure hunt <WORKING!!!>.", 0x03);
 	c.Y += 1;
 	c.X = g_Console.getConsoleSize().X / 2 - 20;
-	g_Console.writeToBuffer(c, "'W', 'A' , 'S', 'D' keys to move", 0x09);
+	g_Console.writeToBuffer(c, "'W', 'S', 'A', 'D' keys to move", 0x09);
 	c.Y += 1;
 	c.X = g_Console.getConsoleSize().X / 2 - 9;
 	g_Console.writeToBuffer(c, "Press 'Esc' to quit", 0x09);
-
    /* COORD c = g_Console.getConsoleSize();
     c.Y /= 3;
     c.X = c.X / 2 - 9;
@@ -232,10 +233,8 @@ void renderMenu()
 	c.Y /= 3;
 	c.X = c.X / 2 - 9;
 	g_Console.writeToBuffer(c, "Press <ENTER> to play!", 0x03);
-	c.X = c.X / 2 - 9;
+	c.Y += 1;
 	g_Console.writeToBuffer(c, "Press <SPACE> for tutorial");
-	c.X = c.X / 2 - 9;
-	g_Console.writeToBuffer(c, "Press ");
 
 	if (g_abKeyPressed[K_RETURN])
 	{
@@ -265,6 +264,10 @@ void renderMap()
         colour(colors[i]);
         g_Console.writeToBuffer(c, " 갚꾼", colors[i]);
     }
+	TrapPoison();
+	TrapFlame();
+	TrapSpike();
+	
 }
 
 void renderCharacter()
@@ -292,6 +295,7 @@ void renderFramerate()
     // displays the elapsed time
     ss.str("");
     ss << g_dElapsedTime << "secs";
+	ss << g_dDeltaTime << "secs";
     c.X = 0;
     c.Y = 0;
     g_Console.writeToBuffer(c, ss.str(), 0x59);
@@ -300,4 +304,81 @@ void renderToScreen()
 {
     // Writes the buffer to the console, hence you will see what you have written
     g_Console.flushBufferToConsole();
+}
+void TrapFlame()
+{
+	// Set up sample colours, and output shadings
+	const WORD colors[] = {
+		0x1A, 0x2B, 0x3C, 0x4D, 0x5E, 0x6F,
+		0xA1, 0xB2, 0xC3, 0xD4, 0xE5, 0xF6
+	};
+	COORD c;
+	//Trap - Flame Geyser
+	if (!setTimeTrap)
+	{
+		timer = g_dElapsedTime;
+		setTimeTrap = true;
+	}
+	for (int i = 0; i < 5; ++i)
+	{
+		c.X = 4 * i;
+		c.Y = 10;
+		if (g_dElapsedTime < timer + 3)
+		{
+			g_Console.writeToBuffer(c, "께께", colors[2]); // Flame ON
+		}
+		else
+		{
+			g_Console.writeToBuffer(c, "께께", colors[0]); // Flame OFF
+		}
+	}
+
+	if (g_dElapsedTime > timer + 8)
+	{
+		setTimeTrap = false;
+	}
+}
+void TrapPoison()
+{
+	// Set up sample colours, and output shadings
+	const WORD colors[] = {
+		0x1A, 0x2B, 0x3C, 0x4D, 0x5E, 0x6F,
+		0xA1, 0xB2, 0xC3, 0xD4, 0xE5, 0xF6
+	};
+
+	COORD c;
+	//Trap - Poison Mist
+	for (int i = 0; i < 5; ++i)
+	{
+		c.X = 4 * i;
+		c.Y = 15;
+		g_Console.writeToBuffer(c, "께께", colors[3]);
+		for (int j = 1; j <= 5; j++)
+		{
+			c.Y += 1;
+			g_Console.writeToBuffer(c, "께께", colors[3]);
+		}
+	}
+}
+void TrapSpike()
+{
+	// Set up sample colours, and output shadings
+	const WORD colors[] = {
+		0x1A, 0x2B, 0x3C, 0x4D, 0x5E, 0x6F,
+		0xA1, 0xB2, 0xC3, 0xD4, 0xE5, 0xF6
+	};
+
+	COORD c;
+	//Trap - Spike
+	for (int i = 0; i < 2; ++i)
+	{
+		c.X = 4 * i;
+		c.Y = 5;
+		g_Console.writeToBuffer(c, "께께", colors[5]);
+		for (int j = 1; j <= 2; j++)
+		{
+			c.Y += 1;
+			g_Console.writeToBuffer(c, "께께", colors[5]);
+		}
+	}
 }
