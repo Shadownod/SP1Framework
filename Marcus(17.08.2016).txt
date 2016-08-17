@@ -2,6 +2,14 @@
 |game.h            |
 |__________________|
 
+enum EPLAYERSTATES
+{
+	P_ALIVE,
+	P_DEAD,
+	P_POISONED
+};
+
+
 
 void PlayerState();
 void stillPoisoned();
