@@ -1,0 +1,172 @@
+ __________________
+|game.h            |
+|__________________|
+
+
+void PlayerState();
+void stillPoisoned();
+
+
+
+
+ _________________
+|game.cpp         | 
+|_________________|
+
+
+int     lives = 3;
+bool    getAntiPoisonPill = false;
+
+
+
+EPLAYERSTATES g_ePlayerState = P_ALIVE;
+
+
+void moveCharacter()
+{
+    bool bSomethingHappened = false;
+    if (g_dBounceTime > g_dElapsedTime)
+        return;
+
+    // Updating the location of the character based on the key press
+    // providing a beep sound whenver we shift the character
+    if (g_abKeyPressed[K_UP] && g_sChar.m_cLocation.Y > 0)
+    {
+		if (g_ePlayerState == P_POISONED)
+		{
+			//Beep(1440, 30);
+			g_sChar.m_cLocation.Y++;
+			bSomethingHappened = true;
+		}
+		else
+		{
+			//Beep(1440, 30);
+			g_sChar.m_cLocation.Y--;
+			bSomethingHappened = true;
+		}
+
+    }
+    if (g_abKeyPressed[K_LEFT] && g_sChar.m_cLocation.X > 0)
+    {
+		if (g_ePlayerState == P_POISONED){
+			//Beep(1440, 30);
+			g_sChar.m_cLocation.X++;
+			bSomethingHappened = true;
+		}
+		else{
+			//Beep(1440, 30);
+			g_sChar.m_cLocation.X--;
+			bSomethingHappened = true;
+		}
+    }
+    if (g_abKeyPressed[K_DOWN] && g_sChar.m_cLocation.Y < g_Console.getConsoleSize().Y - 1)
+    {
+		if (g_ePlayerState == P_POISONED){
+			//Beep(1440, 30);
+			g_sChar.m_cLocation.Y--;
+			bSomethingHappened = true;
+		}
+		else{
+			//Beep(1440, 30);
+			g_sChar.m_cLocation.Y++;
+			bSomethingHappened = true;
+		}
+    }
+    if (g_abKeyPressed[K_RIGHT] && g_sChar.m_cLocation.X < g_Console.getConsoleSize().X - 1)
+    {
+		if (g_ePlayerState == P_POISONED){
+			//Beep(1440, 30);
+			g_sChar.m_cLocation.X--;
+			bSomethingHappened = true;
+		}
+		else{
+
+			//Beep(1440, 30);
+			g_sChar.m_cLocation.X++;
+			bSomethingHappened = true;
+		}
+    }
+    if (g_abKeyPressed[K_SPACE])
+    {
+        g_sChar.m_bActive = !g_sChar.m_bActive;
+        bSomethingHappened = true;
+    }
+
+    if (bSomethingHappened)
+    {
+        // set the bounce time to some time in the future to prevent accidental triggers
+        g_dBounceTime = g_dElapsedTime + 0.125; // 125ms should be enough
+    }
+}
+
+
+
+
+
+void renderCharacter()
+{
+	g_ePlayerState = P_ALIVE;
+    // Draw the location of the character
+	WORD charColor = 0x0C;
+    if (g_sChar.m_bActive)
+    {
+        charColor = 0x0A;
+    }
+    g_Console.writeToBuffer(g_sChar.m_cLocation, (char)1, charColor);
+	
+}
+
+
+
+void PlayerState(){
+	//fire deducts life, if lives == 0 spawn back at map start. Requires timing 
+	//Spikes deducts life and spawn back to map starting spawn.
+	//poison reverse controls.
+
+	//Defining fire trap coordinates
+	int fireX[] = { 0, /*Input coordinates*/ };
+	int fireY[] = { 0, /*Input coordinates*/ };
+
+	//Checking player's coordinate with fire's coordinate
+	for (int i = 0; i < g_Console.getConsoleSize().Y; i++){
+		if ((g_sChar.m_cLocation.X == fireX[i]) && (g_sChar.m_cLocation.Y == fireY[i])){
+			lives--;
+			if (lives == 0){
+				g_ePlayerState = P_DEAD;
+			}
+			break;
+		}
+	}
+
+	//Defining Spikes trap coordinates
+	int spikeX[] = { 0, /*Input coordinates*/ };
+	int spikeY[] = { 0, /*Input coordinates*/ };
+
+	//Checking player's coordinate with spike's coordinate
+	for (int i = 0; i < g_Console.getConsoleSize().Y; i++){
+		if ((g_sChar.m_cLocation.X == spikeX[i]) && (g_sChar.m_cLocation.Y == spikeY[i])){
+			lives--;
+			if (lives == 0){
+				g_ePlayerState = P_DEAD;
+			}
+			break;
+		}
+	}
+	//Defining poison trap coordinates
+	int poisonX[] = { 0, /*Input coordinates*/ };
+	int poisonY[] = { 0, /*Input coordinates*/ };
+	
+	//Checking player's coordinate and poison's coordinate
+	for (int i = 0; i < g_Console.getConsoleSize().Y; i++){
+		if ((g_sChar.m_cLocation.X == poisonX[i]) && (g_sChar.m_cLocation.Y == poisonY[i])){
+			g_ePlayerState = P_POISONED;
+			break;
+		}
+	}
+}
+
+void stillPoisoned(){
+	if (getAntiPoisonPill == true){
+		g_ePlayerState = P_ALIVE;
+	}
+}
