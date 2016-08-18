@@ -7,6 +7,12 @@
 
 
 bool fireset = true;
+std::vector<int> fireX;
+std::vector<int> fireY;
+std::vector<int> spikeX;
+std::vector<int> spikeY;
+std::vector<int> poisonX;
+std::vector<int> poisonY;
 
 
 
@@ -70,7 +76,7 @@ void PlayerState(){
 	//poison reverse controls.
 
 	//Defining fire trap coordinates
-	std::vector<int> fireX;
+	
 	/*Pushback coordinates*/
 	fireX.push_back(0);
 	fireX.push_back(1);
@@ -93,7 +99,7 @@ void PlayerState(){
 	fireX.push_back(18);
 	fireX.push_back(19);
 	
-	std::vector<int> fireY;
+	
 	/*Pushback coordinates*/
 	fireY.push_back(10);
 	fireY.push_back(10);
@@ -121,6 +127,7 @@ void PlayerState(){
 		if ((g_sChar.m_cLocation.X == fireX[i]) && (g_sChar.m_cLocation.Y == fireY[i])){
 			if (fireset == true){
 				lives--;
+				g_ePlayerState = P_ALIVE;
 				g_sChar.m_cLocation.X = 50;
 				g_sChar.m_cLocation.Y = 20;
 				if (lives == 0){
@@ -133,7 +140,7 @@ void PlayerState(){
 	}
 
 	//Defining Spikes trap coordinates
-	std::vector<int> spikeX;
+	
 	/*Pushback coordinates here*/
 	spikeX.push_back(0);
 	spikeX.push_back(1);
@@ -144,7 +151,7 @@ void PlayerState(){
 	spikeX.push_back(6);
 	spikeX.push_back(7);
 
-	std::vector<int> spikeY;
+	
 	/*Pushback coordinates here*/
 	spikeY.push_back(5);
 	spikeY.push_back(6);
@@ -156,6 +163,7 @@ void PlayerState(){
 		for (int u = 0; u < spikeY.size(); u++){
 			if ((g_sChar.m_cLocation.X == spikeX[i]) && (g_sChar.m_cLocation.Y == spikeY[u])){
 				lives--;
+				g_ePlayerState = P_ALIVE;
 				g_sChar.m_cLocation.X = 9;  /*Value == to spawn location at X*/
 				g_sChar.m_cLocation.Y = 9;  /*Value == to spawn location at Y*/
 				if (lives == 0){
@@ -166,7 +174,7 @@ void PlayerState(){
 		}
 	}
 	//Defining poison trap coordinates
-	std::vector<int> poisonX;  
+	  
 	/*Pushback coordinates*/
 	poisonX.push_back(0);
 	poisonX.push_back(1);
@@ -189,7 +197,7 @@ void PlayerState(){
 	poisonX.push_back(18);
 	poisonX.push_back(19);
 
-	std::vector<int> poisonY;
+	
 	/*Pushback coordinates*/
 	poisonY.push_back(15);
 	poisonY.push_back(16);
