@@ -1,0 +1,219 @@
+ ________________
+|game.cpp        |
+|________________|
+
+#include <vector>
+
+
+
+bool fireset = true;
+
+
+
+void gameplay()            // gameplay logic
+{
+    processUserInput(); // checks if you should change states or do something else with the game, e.g. pause, exit
+    moveCharacter();    // moves the character, collision detection, physics, etc
+	PlayerState();      // Check if player triggered trap
+                        // sound can be played here too.
+}
+
+
+
+
+
+void TrapFlame()
+{
+	// Set up sample colours, and output shadings
+	const WORD colors[] = {
+		0x1A, 0x2B, 0x3C, 0x4D, 0x5E, 0x6F,
+		0xA1, 0xB2, 0xC3, 0xD4, 0xE5, 0xF6
+	};
+	COORD c;
+	//Trap - Flame Geyser
+	if (!setTimeTrap)
+	{
+		timer = g_dElapsedTime;
+		setTimeTrap = true;
+	}
+	for (int i = 0; i < 5; ++i)
+	{
+		c.X = 4 * i;
+		c.Y = 10;
+		if (g_dElapsedTime < timer + 3)
+		{
+			fireset = true;
+			g_Console.writeToBuffer(c, "께께", colors[2]); // Flame ON
+		}
+		else
+		{
+			fireset = false;
+			g_Console.writeToBuffer(c, "께께", colors[0]); // Flame OFF
+		}
+	}
+
+	if (g_dElapsedTime > timer + 8)
+	{
+		setTimeTrap = false;
+	}
+}
+
+
+
+
+
+
+
+void PlayerState(){
+	//fire deducts life, if lives == 0 spawn back at map start. Requires timing 
+	//Spikes deducts life and spawn back to map starting spawn.
+	//poison reverse controls.
+
+	//Defining fire trap coordinates
+	std::vector<int> fireX;
+	/*Pushback coordinates*/
+	fireX.push_back(0);
+	fireX.push_back(1);
+	fireX.push_back(2);
+	fireX.push_back(3);
+	fireX.push_back(4);
+	fireX.push_back(5);
+	fireX.push_back(6);
+	fireX.push_back(7);
+	fireX.push_back(8);
+	fireX.push_back(9);
+	fireX.push_back(10);
+	fireX.push_back(11);
+	fireX.push_back(12);
+	fireX.push_back(13);
+	fireX.push_back(14);
+	fireX.push_back(15);
+	fireX.push_back(16);
+	fireX.push_back(17);
+	fireX.push_back(18);
+	fireX.push_back(19);
+	
+	std::vector<int> fireY;
+	/*Pushback coordinates*/
+	fireY.push_back(10);
+	fireY.push_back(10);
+	fireY.push_back(10);
+	fireY.push_back(10);
+	fireY.push_back(10);
+	fireY.push_back(10);
+	fireY.push_back(10);
+	fireY.push_back(10);
+	fireY.push_back(10);
+	fireY.push_back(10);
+	fireY.push_back(10);
+	fireY.push_back(10);
+	fireY.push_back(10);
+	fireY.push_back(10);
+	fireY.push_back(10);
+	fireY.push_back(10);
+	fireY.push_back(10);
+	fireY.push_back(10);
+	fireY.push_back(10);
+	fireY.push_back(10);
+
+	//Checking player's coordinate with fire's coordinate
+	for (int i = 0; i < fireX.size(); i++){
+		if ((g_sChar.m_cLocation.X == fireX[i]) && (g_sChar.m_cLocation.Y == fireY[i])){
+			if (fireset == true){
+				lives--;
+				g_sChar.m_cLocation.X = 50;
+				g_sChar.m_cLocation.Y = 20;
+				if (lives == 0){
+					//g_ePlayerState = P_DEAD;
+				}
+				
+			}
+			
+		}
+	}
+
+	//Defining Spikes trap coordinates
+	std::vector<int> spikeX;
+	/*Pushback coordinates here*/
+	spikeX.push_back(0);
+	spikeX.push_back(1);
+	spikeX.push_back(2);
+	spikeX.push_back(3); 
+	spikeX.push_back(4);
+	spikeX.push_back(5);
+	spikeX.push_back(6);
+	spikeX.push_back(7);
+
+	std::vector<int> spikeY;
+	/*Pushback coordinates here*/
+	spikeY.push_back(5);
+	spikeY.push_back(6);
+	spikeY.push_back(7);
+	
+
+	//Checking player's coordinate with spike's coordinate
+	for (int i = 0; i < spikeX.size(); i++){
+		for (int u = 0; u < spikeY.size(); u++){
+			if ((g_sChar.m_cLocation.X == spikeX[i]) && (g_sChar.m_cLocation.Y == spikeY[u])){
+				lives--;
+				g_sChar.m_cLocation.X = 9;  /*Value == to spawn location at X*/
+				g_sChar.m_cLocation.Y = 9;  /*Value == to spawn location at Y*/
+				if (lives == 0){
+					g_ePlayerState = P_DEAD;
+				}
+				break;
+			}
+		}
+	}
+	//Defining poison trap coordinates
+	std::vector<int> poisonX;  
+	/*Pushback coordinates*/
+	poisonX.push_back(0);
+	poisonX.push_back(1);
+	poisonX.push_back(2);
+	poisonX.push_back(3);
+	poisonX.push_back(4);
+	poisonX.push_back(5);
+	poisonX.push_back(6);
+	poisonX.push_back(7);
+	poisonX.push_back(8);
+	poisonX.push_back(9);
+	poisonX.push_back(10);
+	poisonX.push_back(11);
+	poisonX.push_back(12);
+	poisonX.push_back(13);
+	poisonX.push_back(14);
+	poisonX.push_back(15);
+	poisonX.push_back(16);
+	poisonX.push_back(17);
+	poisonX.push_back(18);
+	poisonX.push_back(19);
+
+	std::vector<int> poisonY;
+	/*Pushback coordinates*/
+	poisonY.push_back(15);
+	poisonY.push_back(16);
+	poisonY.push_back(17);
+	poisonY.push_back(18);
+	poisonY.push_back(19);
+	poisonY.push_back(20);
+	
+	//Checking player's coordinate and poison's coordinate
+	for (int i = 0; i < poisonX.size(); i++){
+		for (int u = 0; u < poisonY.size(); u++){
+			if ((g_sChar.m_cLocation.X == poisonX[i]) && (g_sChar.m_cLocation.Y == poisonY[u])){
+				g_ePlayerState = P_POISONED;
+				break;
+			}
+		}
+	}
+}
+
+
+
+
+
+
+
+
+
