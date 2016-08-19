@@ -1,0 +1,5 @@
+Press <ENTER> to play!
+
+Press <SPACE> for Tutorial
+
+Press <RSHIFT> for Story

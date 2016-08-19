@@ -1,0 +1,24 @@
+Your Main Objective is to collect the treasure in a treasure box.
+It will be located at the end of the maze. Return back to the entrance to win.
+Simple enough?
+ 
+           ---Controls---
+
+'Up', 'Down', 'Left', 'Right' keys to move
+'Enter' to confirm selection and interact
+'R' key to reset the level
+'Escape' to exit the game
+Press <Escape> to return back to menu
+
+            ---Features---
+
+|Red: Fire traps that activate every few seconds.
+|     Wait for them to turn green before moving forward!
+|
+|Black Dots: Spikes that will instantly kill you. Avoid it at all costs!
+|
+|Purple: Poison mist that reverses your input for 30 seconds. Look out for white pills!
+|
+|Red Slash: Levers that can unlock hidden pathways. Useful!
+|
+|Yellow Circles: Collectibles that increase score. Aim for the top!
