@@ -4,11 +4,11 @@ Simple enough?
  
            ---Controls---
 
-'Up', 'Down', 'Left', 'Right' keys to move
-'Enter' to confirm selection and interact
-'R' key to reset the level
-'Escape' to exit the game
-Press <Escape> to return back to menu
+|'Up', 'Down', 'Left', 'Right' keys to move
+|'Enter' to confirm selection and interact
+|'R' key to reset the level
+|'Escape' to exit the game
+|'Backspace' to return back to menu
 
             ---Features---
 

@@ -71,7 +71,7 @@ void init(void)
 	g_dBounceTime = 0.0;
 
 	// sets the initial state for the game
-	g_eGameState = S_SPLASHSCREEN;
+	//g_eGameState = S_SPLASHSCREEN;
 
 	g_sChar.m_cLocation.X = g_Console.getConsoleSize().X / 2 - 61;
 	g_sChar.m_cLocation.Y = g_Console.getConsoleSize().Y / 2 - 11;
@@ -115,6 +115,7 @@ void getInput(void)
 	g_abKeyPressed[K_SPACE] = isKeyPressed(VK_SPACE);
 	g_abKeyPressed[K_ESCAPE] = isKeyPressed(VK_ESCAPE);
 	g_abKeyPressed[K_RETURN] = isKeyPressed(VK_RETURN);
+    g_abKeyPressed[K_BACKSPACE] = isKeyPressed(VK_BACK);
 }
 
 //--------------------------------------------------------------
@@ -173,7 +174,7 @@ void render()
 
 void splashScreenWait()    // waits for time to pass in splash screen
 {
-	if (g_dElapsedTime > 1.0) // wait for 3 seconds to switch to game mode, else do nothing
+	if (g_dElapsedTime > 3.0) // wait for 3 seconds to switch to game mode, else do nothing
 		g_eGameState = S_MENU;
 }
 
@@ -363,7 +364,7 @@ void renderSplashScreen()  // renders the splash screen
 		}
 		myfile.close();
 	}
-
+    processUserInput(); //allow user to quit game
 	/*COORD c = g_Console.getConsoleSize();
 	c.Y /= 3;
 	c.X = c.X / 2 - 20;
@@ -402,7 +403,6 @@ void renderMenu()
 
 	COORD c = g_Console.getConsoleSize();
 	c.Y = 5;
-
 	c.X = g_Console.getConsoleSize().X / 2 - 12;
 
 	string line;
@@ -421,20 +421,17 @@ void renderMenu()
 	{
 		g_eGameState = S_GAME;
 	}
-
 	if (g_abKeyPressed[K_SPACE])
 	{
 		g_eGameState = S_TUTORIAL;
-	}
+    }
+    processUserInput(); //allow user to quit game
 }
-
-
 void renderGame()
 {
 	renderMap();        // renders the map to the buffer first
 	renderCharacter();  // renders the character into the buffer
 }
-
 void renderMap()
 {
 	// Set up sample colours, and output shadings
@@ -804,7 +801,7 @@ void renderTutorial()
 		myfile.close();
 	}
 
-	if (g_abKeyPressed[K_ESCAPE])
+	if (g_abKeyPressed[K_BACKSPACE])
 	{
 		g_eGameState = S_MENU;
 	}
