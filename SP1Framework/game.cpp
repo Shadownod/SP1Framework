@@ -116,6 +116,7 @@ void getInput(void)
 	g_abKeyPressed[K_ESCAPE] = isKeyPressed(VK_ESCAPE);
 	g_abKeyPressed[K_RETURN] = isKeyPressed(VK_RETURN);
     g_abKeyPressed[K_BACKSPACE] = isKeyPressed(VK_BACK);
+    g_abKeyPressed[K_RSHIFT] = isKeyPressed(VK_RSHIFT);
 }
 
 //--------------------------------------------------------------
@@ -140,8 +141,8 @@ void update(double dt)
 
 	switch (g_eGameState)
 	{
-	case S_SPLASHSCREEN: splashScreenWait(); // game logic for the splash screen
-		break;
+	/*case S_SPLASHSCREEN: splashScreenWait(); // game logic for the splash screen
+		break;*/
 	case S_GAME: gameplay(); // gameplay logic when we are in the game
 		break;
 	}
@@ -167,17 +168,19 @@ void render()
 		break;
 	case S_TUTORIAL: renderTutorial();
 		break;
+    case S_STORY: renderStory();
+        break;
 	}
 	renderFramerate();  // renders debug information, frame rate, elapsed time, etc
 	renderToScreen();   // dump the contents of the buffer to the screen, one frame worth of game
 }
 
-void splashScreenWait()    // waits for time to pass in splash screen
+/*void splashScreenWait()    // waits for time to pass in splash screen
 {
 	if (g_dElapsedTime > 3.0) // wait for 3 seconds to switch to game mode, else do nothing
 		g_eGameState = S_MENU;
 }
-
+*/
 void gameplay()            // gameplay logic
 {
 	processUserInput(); // checks if you should change states or do something else with the game, e.g. pause, exit
@@ -350,20 +353,24 @@ void renderSplashScreen()  // renders the splash screen
 
 
 	COORD c = g_Console.getConsoleSize();
-	c.Y = 1;
+    c.Y = 0;
 	c.X = g_Console.getConsoleSize().X;
 
 	string line;
-	ifstream myfile("splash.txt");
+	ifstream myfile("splash2.txt");
 	if (myfile.is_open())
 	{
 		while (getline(myfile, line))
 		{
 			c.Y += 1;
-			g_Console.writeToBuffer(c, line, 0x13);
+			g_Console.writeToBuffer(c, line, 0x03);
 		}
 		myfile.close();
 	}
+    if (g_abKeyPressed[K_SPACE])
+    {
+        g_eGameState = S_MENU;
+    }
     processUserInput(); //allow user to quit game
 	/*COORD c = g_Console.getConsoleSize();
 	c.Y /= 3;
@@ -402,8 +409,8 @@ void renderMenu()
 	}*/
 
 	COORD c = g_Console.getConsoleSize();
-	c.Y = 5;
-	c.X = g_Console.getConsoleSize().X / 2 - 12;
+	c.Y = 0;
+	c.X = g_Console.getConsoleSize().X;
 
 	string line;
 	ifstream myfile("menu.txt");
@@ -424,6 +431,10 @@ void renderMenu()
 	if (g_abKeyPressed[K_SPACE])
 	{
 		g_eGameState = S_TUTORIAL;
+    }
+    if (g_abKeyPressed[K_RSHIFT])
+    {
+        g_eGameState = S_STORY;
     }
     processUserInput(); //allow user to quit game
 }
@@ -806,7 +817,28 @@ void renderTutorial()
 		g_eGameState = S_MENU;
 	}
 }
+void renderStory()
+{
+    COORD c = g_Console.getConsoleSize();
+    c.Y = 1;
+    c.X = g_Console.getConsoleSize().X;
 
+    string line;
+    ifstream myfile("story.txt");
+    if (myfile.is_open())
+    {
+        while (getline(myfile, line))
+        {
+            c.Y += 1;
+            g_Console.writeToBuffer(c, line, 0x03);
+        }
+        myfile.close();
+    }
+    if (g_abKeyPressed[K_BACKSPACE])
+    {
+        g_eGameState = S_MENU;
+    }
+}
 /*void map()
 {
 COORD c = g_Console.getConsoleSize();

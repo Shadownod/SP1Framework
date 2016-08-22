@@ -18,7 +18,8 @@ enum EKEYS
     K_SPACE,
     K_COUNT,
     K_RETURN,
-    K_BACKSPACE
+    K_BACKSPACE,
+    K_RSHIFT
 };
 
 // Enumeration for the different screen states
@@ -28,7 +29,8 @@ enum EGAMESTATES
 	S_GAME,
 	S_COUNT,
 	S_MENU,
-	S_TUTORIAL
+	S_TUTORIAL,
+    S_STORY
 };
 
 // struct for the game character
@@ -76,6 +78,6 @@ void PlayerState();
 void PlayerFire();
 void PlayerSpike();
 Wall MakeWall(int CoordX, int CoordY);
-
+void renderStory();
 
 #endif // _GAME_H
