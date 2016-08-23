@@ -1,0 +1,44 @@
+Legends:
+		² -> walls
+		t -> treasure
+		s -> spike
+                p -> poison
+		f -> fire
+		o -> other collectable/item
+		k -> treasure key
+		a -> anti poison pill
+
+
+ (                                  
+ )\ )                   (        )  
+(()/(    (    )      (  )\    ( /(  
+ /(_))  ))\  /((    ))\((_)   )\()) 
+(_))   /((_)(_))\  /((_)_    ((_)\  
+| |   (_))  _)((_)(_)) | |  |__ (_) 
+| |__ / -_) \ V / / -_)| |   |_ \   
+|____|\___|  \_/  \___||_|  |___/   
+
+²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²
+²to  s   ²   ²²²²²²²²²²²²²²²²²²   ²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²      f              f      ppppp²²ss        ²
+²²²²   s   ² ² f ²    ²²  ²²² ²   ²²²²    ff       ²²²²  o  ²²²²oo          ²²²      f              f      ppppp²²s  ²²²²   ²
+²ka ²²²²²²²² ² f ²   ²f   ²f² ²   ²²²     ²²²²²²²² ²²²  ²²²  ²²²²²²²²²²²²²  ²²² ²²²²²²²²²²²²²²²²²²²²²²²²²² ppppp²²s s²  ²    <-entrance
+²            ² f ²   ²f²² ²²² ²     o ²   ²²²²²²²  ²²  ²²²²²  ²²²²²²²²²²²²  ²²²      ² ² a ² f ² p ²²²o²²² ppppp²²  s   ²²²²²
+²²²²²²²²²²ff² ²p²   ²fo² ²²  ²   ²²²²²   ²²²²²²  ²²o ²²²²²²² o²oo          ²²² pppp p ² ² ² ² ² ² ²            ²² ss    ²²o²
+²   ²        ² ² ²    ²²  ² ² ²   ²²²²²   ²²²²²  ²²²²  ²²²²²  ²²²²²²²²²²²²  ²²  pppp  p  ² p ² a ²            ² ²     ²   ² ²
+² ² ²          ² ²            ²   ²²²²²   ²²²²  ²²²²²²  ²²²  ²²²²²²²²²²²²²  ²²  ppppp ²²²²²²²²²²²²²²sssss²²²²²²a²²²²²  ²    ²
+²            ²²² o      sssss ²   ²²²²²ooo²²²  ppfffaa ooso ²²²²oo          ²   p     ²   ² s     ²²     ²    sos  k² ²²²²²²²
+²²²²²²²²²²²²²²²²²²²²²²²²      ²  ²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²    p     ²f² ² s  ²  ²  ²²² ²  ²²²²² ²²² ²²²²²²²
+²    ²   f²²²²²²²²²²²²²  ²²²²²²                                            ²    ²     f ² ²    ²  ² ²²²² ²  ²²²²²   ²       ²
+²  ² ² ² f      f            o²  ²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²² ²²²²²²    ²     f ² ²pppp²  ²    ² ²² ²²  ²²  ²²²²²²  ²
+²  ² ² ² f²²²²²²²²²²²²²²²²²²²²²                                   ²             ²     f ² ²pppp²² ²²²² ² ²² ²² ²f²   ² ²    ²
+² o²   ² f  ²   ²   ²   ²   ²o²     ²²² ²²² ²²²²²²²²²²²²²²²²²²²  ²pppppppppppppp²     ²s² ²     ² s    ² ²² ²  ²f²     ²  ²²²
+²²²² ²²² f²   ²   ²   ²   ²    ²sa  ²²² ²²²  ²   ²    ²   f     ²pppppppppppppppp²    ²a² ²     ² s sss² ²² ² ²²f²²²²²      ²
+²ffffff²²²²²²²²²²²²²²²²²²²²²²² ²²²²²      ²² ² ²      ²   f    ²  ²²²²²    ²²²²²  ²   ² ²       ² ²   ²² ²²     f    ² ²²   ²
+²        ² p ²   ²   ²   ²   ²    ²  ²    ²    ²  ²²²     f    ²      ²    ²       s  ² ²²²²²²  ² ²  ²²² ²² ²   f    ²²²²   ²
+²       k² p   ²   ²   ²   ²     ²  ²f²   ²²²²²²² ²²²²²   f     ²     ²    ²ff²²    s ²         ²    ²²²    ²   f    ²      ²
+²²²²²²²²²² ²²²²²²²²²²²²²²²²²²²²²²   ²f²    ²    ² ²   ²²²²²²²²²  ²    ²    ²   ²     ²²²²²²²²²²²²²²²²²²²²²²²²²²²²   ²²  ²²²²²
+²   s   s  ²   ² a ²   ² s    f     ²²²²²  ²  ² ²²    ²pppp       ²   ²    ²  o²               s   ² f      os  ²  ²        ²
+² s   s    ² ² ² ² ² ² ² s    f     ²o  ²o²  ²  ²²    ²op   p      ² o²    ²²²²²     ² ²²²²²²² s ² ² fssssssss  ²     ²²   ²²
+² sssssssss² ² ² ² ² ² ² p    f     ² ² ²²  ²  ²²² ²² ²²² ²²²²²     ²²² ²²²²²²²²²²²²²²   ²   ² s ² ² f  p   os  ²²²²²²²²  ²²²
+²          f ²   ² o ²   s    f     ² ²  p ²       ²²   f    o²                      ²²²   ²a²   ²   fp   p ps           ²²²²
+²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²²
