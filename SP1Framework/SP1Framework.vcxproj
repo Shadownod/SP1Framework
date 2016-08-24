@@ -82,6 +82,7 @@
     <ClCompile Include="game.cpp" />
     <ClCompile Include="highscore.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="traps.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Framework\console.h" />
@@ -89,6 +90,7 @@
     <ClInclude Include="game.h" />
     <ClInclude Include="highscore.h" />
     <ClInclude Include="map.h" />
+    <ClInclude Include="traps.h" />
     <ClInclude Include="tutorial.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -19,6 +19,7 @@ int		lives = 3;
 bool	getAntiPoisonPill = false;
 bool	fireset = false;
 extern bool lostlive;
+extern string score;
 
 vector<int> fireX;
 vector<int> fireY;
@@ -356,6 +357,10 @@ void processUserInput()
     {
         g_bQuitGame = true;
     }
+    if (g_abKeyPressed[K_BACKSPACE])
+    {
+        g_eGameState = S_MENU;
+    }
 }
 void processhighscore()
 {
@@ -446,7 +451,8 @@ void renderMenu()
 		}
 		myfile.close();
 	}
-
+    lives = 3;
+    score = "0";
 	if (g_abKeyPressed[K_RETURN])
 	{
 		g_eGameState = S_GAME;
@@ -834,11 +840,7 @@ void renderTutorial()
 		}
 		myfile.close();
 	}
-
-	if (g_abKeyPressed[K_BACKSPACE])
-	{
-		g_eGameState = S_MENU;
-	}
+    processUserInput();
 }
 void renderStory()
 {
@@ -857,10 +859,7 @@ void renderStory()
         }
         myfile.close();
     }
-    if (g_abKeyPressed[K_BACKSPACE])
-    {
-        g_eGameState = S_MENU;
-    }
+    processUserInput();
 }
 /*void map()
 {

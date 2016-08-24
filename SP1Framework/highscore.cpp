@@ -43,22 +43,36 @@ void highscoreboard()
     COORD c = g_Console.getConsoleSize();
     
     string line;
+    ifstream myFIle("gameover.txt");
+    if (myFIle.is_open())
+    {
+        c.X = (g_Console.getConsoleSize().X / 3)-20;
+        c.Y = 1;
+        while (getline(myFIle, line))
+        {
+            c.Y += 1;
+            g_Console.writeToBuffer(c, line, 0x03);
+        }
+        myFIle.close();
+    }
     ifstream myfile("highscore.txt");
     if (myfile.is_open())
     {
         getline(myfile, line);
         highscore = line;
 
-        c.X = g_Console.getConsoleSize().X / 2;
-        c.Y = (g_Console.getConsoleSize().Y / 2);
+        c.X = (g_Console.getConsoleSize().X / 3) + 2;
+        c.Y = (g_Console.getConsoleSize().Y / 3);
 
         g_Console.writeToBuffer(c, "Previous Highest Score : ", 0x03);
-        c.Y += 1;
+        c.X += 27;
         g_Console.writeToBuffer(c, line, 0x03);
+        c.X -= 27;
         c.Y += 1;
         g_Console.writeToBuffer(c, "Your Score : ", 0x03);
-        c.Y += 1;
+        c.X += 14;
         g_Console.writeToBuffer(c, score, 0x03);
+        c.X -= 14;
 
         int playerScore = stoi(score);
         int currenthighscore = stoi(highscore);
@@ -68,6 +82,10 @@ void highscoreboard()
             c.Y += 1;
             g_Console.writeToBuffer(c, "New High Score", 0x03);
         }
+        c.Y += 5;
+        g_Console.writeToBuffer(c, "Press 'backspace' to return to menu.", 0x03);
+        c.Y += 1;
+        g_Console.writeToBuffer(c, "Press 'esc' to quit game.", 0x03);
         myfile.close();
     }
 }
