@@ -3,6 +3,7 @@
 
 #include "Framework\timer.h"
 #include "tutorial.h"
+#include "highscore.h"
 
 extern CStopWatch g_swTimer;
 extern bool g_bQuitGame;
@@ -30,7 +31,8 @@ enum EGAMESTATES
 	S_COUNT,
 	S_MENU,
 	S_TUTORIAL,
-    S_STORY
+    S_STORY,
+    S_HIGHSCORE
 };
 
 // struct for the game character
@@ -79,5 +81,6 @@ void PlayerFire();
 void PlayerSpike();
 Wall MakeWall(int CoordX, int CoordY);
 void renderStory();
-
+void processhighscore();
+void renderhighscoreboard();
 #endif // _GAME_H

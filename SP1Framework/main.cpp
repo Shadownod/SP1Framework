@@ -7,6 +7,7 @@ CStopWatch g_Timer;                            // Timer function to keep track o
 bool g_bQuitGame = false;                    // Set to true if you want to quit the game
 const unsigned char gc_ucFPS = 100;                // FPS of this game
 const unsigned int gc_uFrameTime = 1000 / gc_ucFPS;    // time for each frame
+extern EGAMESTATES g_eGameState;
 
 //main loop declaration
 void mainLoop( void );
@@ -20,6 +21,7 @@ int main( void )
 {
     init();      // initialize your variables
     mainLoop();  // main loop
+    comparescore();
     shutdown();  // do clean up, if any. free memory.
     
     return 0;

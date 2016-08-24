@@ -3,6 +3,7 @@
 //
 #include "map.h"
 #include "game.h"
+#include "highscore.h"
 #include "Framework\console.h"
 #include <iostream>
 #include <iomanip>
@@ -17,6 +18,7 @@ int		timer;
 int		lives = 3;
 bool	getAntiPoisonPill = false;
 bool	fireset = false;
+extern bool lostlive;
 
 vector<int> fireX;
 vector<int> fireY;
@@ -89,6 +91,7 @@ void init(void)
 //--------------------------------------------------------------
 void shutdown(void)
 {
+    
 	// Reset to white text on black background
 	colour(FOREGROUND_BLUE | FOREGROUND_GREEN | FOREGROUND_RED);
 
@@ -145,6 +148,8 @@ void update(double dt)
 		break;*/
 	case S_GAME: gameplay(); // gameplay logic when we are in the game
 		break;
+    //case S_HIGHSCORE: highscoreboard();
+        //break;
 	}
 }
 //--------------------------------------------------------------
@@ -170,9 +175,16 @@ void render()
 		break;
     case S_STORY: renderStory();
         break;
+    case S_HIGHSCORE: renderhighscoreboard();
+        //comparescore();
+        break;
 	}
 	renderFramerate();  // renders debug information, frame rate, elapsed time, etc
 	renderToScreen();   // dump the contents of the buffer to the screen, one frame worth of game
+}
+void renderhighscoreboard(){
+    processUserInput();
+    highscoreboard();
 }
 
 /*void splashScreenWait()    // waits for time to pass in splash screen
@@ -189,6 +201,8 @@ void gameplay()            // gameplay logic
 	PlayerFire();
 	//PlayerPoison();
 	//PlayerSpike();
+    processhighscore();
+    calculate();
 }
 
 void moveCharacter()
@@ -338,10 +352,19 @@ void moveCharacter()
 void processUserInput()
 {
 	// quits the game if player hits the escape key
-	if (g_abKeyPressed[K_ESCAPE])
-		g_bQuitGame = true;
+    if (g_abKeyPressed[K_ESCAPE])
+    {
+        g_bQuitGame = true;
+    }
 }
-
+void processhighscore()
+{
+    if (lives == 0)
+    {
+        g_eGameState = S_HIGHSCORE;
+        
+    }
+}
 void clearScreen()
 {
 	// Clears the buffer with this colour attribute
@@ -879,12 +902,13 @@ void PlayerState(){
 		if ((g_sChar.m_cLocation.X == fireX[i]) && (g_sChar.m_cLocation.Y == fireY[i])){
 			if (fireset == true){
 				lives--;
-				g_ePlayerState = P_ALIVE;
-				g_sChar.m_cLocation.X = 1;
-				g_sChar.m_cLocation.Y = 4;
+                lostlive = true;
 				if (lives == 0){
 					//g_ePlayerState = P_DEAD;
 				}
+				g_ePlayerState = P_ALIVE;
+				g_sChar.m_cLocation.X = 1;
+				g_sChar.m_cLocation.Y = 4;
 
 			}
 
@@ -983,6 +1007,7 @@ void PlayerFire()
 		{
 			if (fireset == true){
 				lives--;
+                lostlive = true;
 				g_ePlayerState = P_ALIVE;
 				g_sChar.m_cLocation.X = 1;
 				g_sChar.m_cLocation.Y = 4;
