@@ -8,4 +8,5 @@
 using namespace std;
 void calculate();
 void highscoreboard();
+void comparescore();
 extern Console g_Console;
