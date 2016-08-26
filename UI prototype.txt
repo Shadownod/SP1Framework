@@ -1,36 +1,9 @@
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
            ______________________________________________________________ 
-          |   LIVES    |    SCORE   |   LEVEL   | PLAYER STATE |   KEY   |
-          |------------|------------|-----------|--------------|---------|
-          |  h  h  h   |            |     l     |       p      |    k    |
-          |____________|____________|___________|______________|_________|
+          |    h h h   |SCORE: sssss | LEVEL: l | PLAYER STATE: p |  k   |
+          |____________|_____________|__________|_________________|______|
+         
           LEGENDS:
-                  h -> LIVES
-		          p -> POISONED
-          		  k -> SHOWS IF KEY IS COLLECTED
-           		  l -> LEVEL NUMBER
+                  h -> LIVES (char 3)
+		          p -> POISONED (poisoned : char 178, with poison colour|normal: white block)
+          		  k -> SHOWS IF KEY IS COLLECTED (char 235)
+           		  l -> LEVEL NUMBER (using the int that determines which map to load)
