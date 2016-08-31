@@ -21,7 +21,6 @@ int main( void )
 {
     init();      // initialize your variables
     mainLoop();  // main loop
-    comparescore();
     shutdown();  // do clean up, if any. free memory.
     
     return 0;

@@ -20,6 +20,7 @@ bool	getAntiPoisonPill = false;
 bool	fireset = false;
 extern bool lostlive;
 extern string score;
+bool highscoreset = false;
 
 vector<int> fireX;
 vector<int> fireY;
@@ -453,6 +454,7 @@ void renderMenu()
 	}
     lives = 3;
     score = "0";
+    highscoreset = false;
 	if (g_abKeyPressed[K_RETURN])
 	{
 		g_eGameState = S_GAME;
@@ -702,7 +704,70 @@ void renderMap()
 			}
 		}
 	}
-
+    c.Y = 25;
+    string line2;
+    ifstream uifile("ui.txt");
+    if (uifile.is_open())
+    {
+        while (getline(uifile, line2))
+        {
+            c.Y += 1;
+            for (int i = 0; i < 1; i++)
+            {
+                c.Y = i + 26;
+                for (int j = 0; j < line2.size(); j++)
+                {
+                    c.X = j;
+                    if (line2[j] == '|')
+                    {
+                        g_Console.writeToBuffer(c, '²', 0x60); //ui border
+                    }
+                    if (line2[j] == 'h')
+                    {
+                        int l = lives;
+                        while (l > 0)
+                        {
+                            g_Console.writeToBuffer(c, (char)3, 0x0C); //lives,heart icons
+                            c.X += 2;
+                            l--;
+                        }
+                    }
+                    if (line2[j] == 'S')
+                    {
+                        g_Console.writeToBuffer(c, "Score : ", 0x06); //player score heading
+                    }
+                    if (line2[j] == 's')
+                    {
+                        g_Console.writeToBuffer(c, score, 0x06); //player score
+                    }
+                    if (line2[j] == 'L')
+                    {
+                        g_Console.writeToBuffer(c, "Level : ", 0x06); //level
+                    }
+                    if (line2[j] == 'l')
+                    {
+                        g_Console.writeToBuffer(c, "4", 0x06); //level number //"4" should change into a variable for level number
+                    }
+                    if (line2[j] == 'p')
+                    {
+                        if (g_ePlayerState == P_POISONED)
+                        {
+                            g_Console.writeToBuffer(c, "Poisoned", 0x0D); //poisoned
+                        }
+                        else
+                        {
+                            g_Console.writeToBuffer(c, "Normal", 0x0F); //normal
+                        }
+                    }
+                    if (line2[j] == 'k')
+                    {
+                        g_Console.writeToBuffer(c, (char)235, 0x0E); //key icons //should have a bool for key collected,and do similar to poison state
+                    }
+                }
+            }
+        }
+        uifile.close();
+    }
 }
 
 

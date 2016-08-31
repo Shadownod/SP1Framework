@@ -10,3 +10,4 @@ void calculate();
 void highscoreboard();
 void comparescore();
 extern Console g_Console;
+extern bool highscoreset;

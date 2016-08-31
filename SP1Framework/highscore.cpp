@@ -1,15 +1,21 @@
 #include "highscore.h"
 
 
-string score = "7000";
+string score = "";
 string highscore = "";
 int itempoints = 100;
 int lifelostpoints = 500;
 int treasurepoint = 2000;
 bool opentreasure = false;
 bool tookitem = false;
-//int lives = 3;    //game.cpp have this
 bool lostlive = false;
+int highscore_container[5];
+int lowest_number = 0;
+int high1 = 0;
+int high2 = 0;
+int high3 = 0;
+int high4 = 0;
+int high5 = 0;
 
 void calculate()
 {
@@ -58,53 +64,71 @@ void highscoreboard()
     ifstream myfile("highscore.txt");
     if (myfile.is_open())
     {
-        getline(myfile, line);
-        highscore = line;
-
-        c.X = (g_Console.getConsoleSize().X / 3) + 2;
+        c.X = (g_Console.getConsoleSize().X / 3) + 15;
         c.Y = (g_Console.getConsoleSize().Y / 3);
-
-        g_Console.writeToBuffer(c, "Previous Highest Score : ", 0x03);
-        c.X += 27;
-        g_Console.writeToBuffer(c, line, 0x03);
-        c.X -= 27;
-        c.Y += 1;
-        g_Console.writeToBuffer(c, "Your Score : ", 0x03);
-        c.X += 14;
-        g_Console.writeToBuffer(c, score, 0x03);
-        c.X -= 14;
-
-        int playerScore = stoi(score);
-        int currenthighscore = stoi(highscore);
-        
-        if (playerScore > currenthighscore) //new highscore
+        int i = 0;
+        while (getline(myfile, line))
         {
-            c.Y += 1;
-            g_Console.writeToBuffer(c, "New High Score", 0x03);
+            int i_line = stoi(line);
+            highscore_container[i] = i_line;
+            i++;
         }
-        c.Y += 5;
+        myfile.close();
+
+        //Sorts out highscore
+        comparescore();
+
+        //Prints out sorted out highscore
+        g_Console.writeToBuffer(c, "High Scores", 0x03);
+        c.X += 3;
+        c.Y += 1;
+        for (int j = 0; j < 5; j++)
+        {
+            c.Y++;
+            g_Console.writeToBuffer(c, to_string(highscore_container[j]), 0x03);
+        }
+        //Checks and update highscore if needed
+        int _score = stoi(score);
+        if (_score > highscore_container[4] && highscoreset == false) //new highscore
+        {
+            swap(_score, highscore_container[4]);
+            highscoreset = true;
+        }
+        //Writes in highscore from sorted out array
+        fstream myFile("highscore.txt");
+        for (int h = 0; h < 5;)
+        {
+            myFile << highscore_container[h] << "\n";       //record highscore in multiple lines
+            h++;
+        }
+        myFile.close();
+        //Prints out remaining contents
+        c.X -= 16;
+        c.Y += 2;
+        g_Console.writeToBuffer(c, "Your current score:", 0x03);
+        c.X += 20;
+        g_Console.writeToBuffer(c, score, 0x03);
+        c.X -= 20;
+        c.Y += 2;
         g_Console.writeToBuffer(c, "Press 'backspace' to return to menu.", 0x03);
         c.Y += 1;
         g_Console.writeToBuffer(c, "Press 'esc' to quit game.", 0x03);
-        myfile.close();
     }
 }
 void comparescore()
-{
-    COORD c = g_Console.getConsoleSize();
-    c.X = g_Console.getConsoleSize().X / 2;
-    c.Y = (g_Console.getConsoleSize().Y / 2) + 4;
-        int _score = stoi(score);
-        int _highscore = stoi(highscore);
-
-        if (_score > _highscore) //new highscore
+{   //Sorting out the highscores
+    while ((highscore_container[0] < highscore_container[1]) ||
+        (highscore_container[1] < highscore_container[2]) ||
+        (highscore_container[2] < highscore_container[3]) ||
+        (highscore_container[3] < highscore_container[4]))
+    {
+        int highscore_container_size = (sizeof(highscore_container) / sizeof(highscore_container[0]));
+        for (int a = 0; a < highscore_container_size; a++)
         {
-            _highscore = _score;
-            
-            score = to_string(_score);
-            highscore = to_string(_highscore);
-            ofstream myFile("highscore.txt");
-            myFile << highscore;       //record highscore into text file
-            myFile.close();
+            if (highscore_container[a] < highscore_container[a + 1]) //checks 1st with 2nd,then 2nd with 3rd,and so on
+            {//if smaller,swap the two
+                swap(highscore_container[a], highscore_container[a + 1]);
+            }
         }
+    }
 }
